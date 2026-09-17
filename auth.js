@@ -1,30 +1,32 @@
 /**
- * Mã sinh viên: 71ITSE41203
+ * Mã sinh viên: 71ITSE41203 - Võ Hoàng Tuấn
  * Hàm kiểm tra đăng nhập hệ thống
+ * Cập nhật: Bổ sung thêm logic kiểm tra định dạng và ghi chú phiên bản
  */
 function login(username, password) {
-    // Giả lập danh sách tài khoản bị khóa
     const lockedAccounts = ['locked_user'];
 
-    // Kiểm tra tài khoản bị khóa
+    // Ghi chú logic: Kiểm tra tài khoản có bị khóa hay không
     if (lockedAccounts.includes(username)) {
         return false;
     }
-
-    // Kiểm tra tính hợp lệ cơ bản
+    
+    // Kiểm tra tính hợp lệ cơ bản (không được để trống)
     if (!username || !password) {
         return false;
     }
 
-    // Kiểm tra tài khoản mật khẩu hợp lệ
+    // Logic bổ sung: Username không được chứa khoảng trắng ở đầu hoặc cuối
+    if (username !== username.trim()) {
+        return false;
+    }
+
+    // Kiểm tra thông tin tài khoản hợp lệ
     if (username === 'admin' && password === '123') {
         return true;
     }
-
+    
     return false;
 }
 
-// Xuất hàm để sử dụng với Jest
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { login };
-}
+module.exports = { login };
